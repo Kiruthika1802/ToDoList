@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import styles from "./css/intro.css.js";
+import { View, Text, Image } from 'react-native';
 
 const IntroPage = () => {
   return (
@@ -15,26 +16,5 @@ const IntroPage = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconContainer: {
-    marginBottom: 10
-  },
-  icon: {
-    width: 100,
-    height: 100,
-  },
-  title: {
-    color: '#FFF',
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
-});
 
 export default IntroPage;

@@ -6,12 +6,12 @@
  */
 
 import React from 'react';
-import RegisterScreen from './register';
+import LoginScreen from './login';
 
 function App() {
 
     return (
-        <RegisterScreen></RegisterScreen>
+        <LoginScreen></LoginScreen>
     )
 }
 export default App;
