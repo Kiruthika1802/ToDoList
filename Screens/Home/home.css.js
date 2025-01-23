@@ -2,13 +2,13 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000', 
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#6200EE',
+    backgroundColor: '#00AEEF',
     padding: 15,
   },
   headerTitle: {
@@ -21,35 +21,25 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   notepadImage: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+    width: 230,
+    height: 230,
+    marginBottom: -5,
   },
   taskPrompt: {
     fontSize: 18,
     marginBottom: 10,
+    color: '#fff',
   },
   addTaskPrompt: {
     fontSize: 14,
-    color: '#888',
-  },
-  fab: {
-    position: 'absolute',
-    bottom: 80,
-    right: 20,
-    backgroundColor: '#6200EE',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1,
+    color: '#aaa',
   },
   bottomNav: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#6200EE',
-    paddingVertical: 10,
+    alignItems: 'center',
+    backgroundColor: '#00AEEF',
+    padding: 10,
   },
   navItem: {
     alignItems: 'center',
@@ -57,5 +47,19 @@ export default StyleSheet.create({
   navText: {
     color: '#fff',
     fontSize: 12,
+  },
+  centerButton: {
+    width: 60,
+    height: 60,
+    backgroundColor: '#007BFF', // Blue color for the button
+    borderRadius: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5, // Adjust spacing from the bottom navigation
+    elevation: 5, // Adds shadow for Android
+    shadowColor: '#000', // Adds shadow for iOS
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
   },
 });

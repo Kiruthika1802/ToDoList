@@ -24,22 +24,21 @@ const HomeScreen = () => {
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
           <Icon name="home" size={24} color="#fff" />
-          <Text style={styles.navText}>Home</Text>
+          <Text style={styles.navText}>Index</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="search" size={24} color="#fff" />
-          <Text style={styles.navText}>Search</Text>
+
+        {/* Centered Circular + Button */}
+        <TouchableOpacity style={styles.centerButton}>
+          <Icon name="plus" size={28} color="#fff" />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.navItem}>
-          <Icon name="user" size={24} color="#fff" />
-          <Text style={styles.navText}>Profile</Text>
+          <Icon name="cog" size={24} color="#fff" />
+          <Text style={styles.navText}>Settings</Text>
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.fab}>
-        <Icon name="plus" size={32} color="#fff" />
-      </TouchableOpacity>
     </View>
   );
 };
+
 export default HomeScreen;
