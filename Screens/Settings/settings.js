@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import styles from './user.css.js';
+import styles from './settings.css.js';
 
 const UserScreen = () => {
     return (
