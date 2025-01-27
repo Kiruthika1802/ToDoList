@@ -107,6 +107,11 @@ export default StyleSheet.create({
     //borderWidth: 1,
     //borderRadius: 50,
   },
+  iconText: {
+    color: '#fff',
+    fontSize: 10,
+    paddingTop: 5,
+  },
   priorityGrid: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -153,5 +158,25 @@ export default StyleSheet.create({
     flex: 1,
     color: '#fff',
     padding: 10,
+  },
+  priorityButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+   // marginTop: 10,
+  },
+  cancelButton: {
+    backgroundColor: '#ff4d4d',
+    padding: 10,
+    borderRadius: 5,
+  },
+  saveButton: {
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
   },
 });

@@ -26,19 +26,39 @@ const HomeScreen = () => {
 
   const renderPriorityPicker = () =>
     priorityPickerVisible && (
-      <View style={styles.priorityGrid}>
-        {[...Array(10).keys()].map((_, index) => (
+      <View>
+        <View style={styles.priorityGrid}>
+          {[...Array(10).keys()].map((_, index) => (
+            <TouchableOpacity
+              key={index + 1}
+              style={[
+                styles.priorityItem,
+                priority === index + 1 && styles.priorityItemSelected,
+              ]}
+              onPress={() => setPriority(index + 1)}
+            >
+              <Text style={styles.priorityText}>{index + 1}</Text>
+            </TouchableOpacity>
+          ))}
+
+        </View>
+        <View style={styles.priorityButtonsContainer}>
           <TouchableOpacity
-            key={index + 1}
-            style={[
-              styles.priorityItem,
-              priority === index + 1 && styles.priorityItemSelected,
-            ]}
-            onPress={() => setPriority(index + 1)}
+            style={styles.cancelButton}
+            onPress={() => setPriorityPickerVisible(false)}
           >
-            <Text style={styles.priorityText}>{index + 1}</Text>
+            <Text style={styles.buttonText}>Cancel</Text>
           </TouchableOpacity>
-        ))}
+          <TouchableOpacity
+            style={styles.saveButton}
+            onPress={() => {
+              // Add your save logic here
+              setPriorityPickerVisible(false);
+            }}
+          >
+            <Text style={styles.buttonText}>Save</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
 
@@ -66,7 +86,7 @@ const HomeScreen = () => {
             source={require('../Images/app_icon.png')}
             style={styles.iconLogo}
           />
-          <Text style={styles.navText}>TickIt</Text>
+          <Text style={styles.iconText}>TickIt</Text>
         </View>
       </View>
       <View style={styles.searchContainer}>
