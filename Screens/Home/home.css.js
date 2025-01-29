@@ -14,6 +14,25 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 20,
   },
+  subHeaderText: {
+    color: '#fff',
+    fontSize: 15, 
+  },
+  taskContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 40,
+  },
+  taskButton: {
+    backgroundColor: '#00AEEF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  taskText: {
+    color: '#fff',
+  },
   mainContent: {
     flex: 1,
     justifyContent: 'center',
@@ -22,7 +41,8 @@ export default StyleSheet.create({
   notepadImage: {
     width: 230,
     height: 230,
-    marginBottom: -5,
+    marginBottom: -10,
+    marginTop: -80,
   },
   taskPrompt: {
     fontSize: 18,
@@ -101,15 +121,15 @@ export default StyleSheet.create({
     marginHorizontal: 5,
   },
   iconLogo: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     borderColor: '#fff',
     //borderWidth: 1,
     //borderRadius: 50,
   },
   iconText: {
     color: '#fff',
-    fontSize: 10,
+    fontSize: 12,
     paddingTop: 5,
   },
   priorityGrid: {

@@ -89,6 +89,16 @@ const HomeScreen = () => {
           <Text style={styles.iconText}>TickIt</Text>
         </View>
       </View>
+      <View style={[styles.header, {marginTop: -7, paddingHorizontal: 15}]}>
+        <View style={styles.taskContainer}>
+          <TouchableOpacity style={styles.taskButton}>
+            <Text style={styles.taskText}>10 Task left</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.taskButton}>
+            <Text style={styles.taskText}>5 Task done</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={styles.searchContainer}>
         <Icon name="search" size={20} color="#888" style={styles.searchIcon} />
         <TextInput

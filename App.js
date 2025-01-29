@@ -1,9 +1,9 @@
 import React from 'react';
-import HomeScreen from './Screens/Home/home';
+import AboutUs from './Screens/Settings/aboutus';
 
 function App() {
   return (
-    <HomeScreen></HomeScreen>
+    <AboutUs/>
   );
 }
 
