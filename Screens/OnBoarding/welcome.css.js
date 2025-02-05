@@ -17,6 +17,7 @@ export default StyleSheet.create({
         width: 100,
         height: 100,
         resizeMode: 'contain',
+        marginTop: 50,
       },
       textContainer: {
         flex: 0.3,
@@ -24,8 +25,14 @@ export default StyleSheet.create({
         justifyContent: 'center',
         textAlign: 'center',
       },
+      name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#fff', 
+        marginTop: 15,
+      }, 
       title: {
-        fontSize: 25,
+        fontSize: 24,
         fontWeight: 'bold',
         color: '#00AEEF', 
         marginBottom: 10,

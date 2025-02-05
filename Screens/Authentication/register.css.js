@@ -19,7 +19,7 @@ export default StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        color: '#aaa',
+        color: '#fff',
         marginBottom: 5,
     },
     input: {
@@ -52,6 +52,8 @@ export default StyleSheet.create({
     },
       loginLink: {
         color: '#00aced',
+        marginTop: 20,
+        textAlign: 'center',
         fontWeight: 'bold',
     },
 

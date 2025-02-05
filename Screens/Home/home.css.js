@@ -12,11 +12,12 @@ export default StyleSheet.create({
   },
   headerTitle: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 25,
+    fontWeight: 'bold',
   },
   subHeaderText: {
     color: '#fff',
-    fontSize: 15, 
+    fontSize: 15,
   },
   taskContainer: {
     flexDirection: 'row',
@@ -58,7 +59,7 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#00AEEF',
-    padding: 10,
+    padding: 15,
   },
   navItem: {
     alignItems: 'center',
@@ -68,18 +69,21 @@ export default StyleSheet.create({
     fontSize: 12,
   },
   centerButton: {
-    width: 60,
-    height: 60,
     backgroundColor: '#1c54b4',
-    borderRadius: 90,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 5,
-    elevation: 5,
+    marginTop: -60,
+    elevation: 20,
     shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 30,
   },
   modalOverlay: {
     flex: 1,
@@ -124,13 +128,12 @@ export default StyleSheet.create({
     width: 35,
     height: 35,
     borderColor: '#fff',
-    //borderWidth: 1,
-    //borderRadius: 50,
   },
   iconText: {
     color: '#fff',
     fontSize: 12,
     paddingTop: 5,
+    left: 2,
   },
   priorityGrid: {
     flexDirection: 'row',
@@ -138,29 +141,41 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: 15,
   },
+  priorityTitle: {
+    color: '#fff',
+    marginVertical: 5,
+    borderBottomWidth: 1,
+
+    borderColor: '#fff',
+    paddingTop: 10,
+    textAlign: 'center',
+  },
   priorityItem: {
-    width: '22%', // Adjusted width for better alignment
-    aspectRatio: 1, // Maintain square shape
+    width: '22%',
+    aspectRatio: 1,
     backgroundColor: '#666',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
     margin: 5,
+    flexDirection: 'row', 
+    gap: 5, 
+    padding: 8,
   },
   priorityItemSelected: {
     backgroundColor: '#00AEEF',
   },
   priorityText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   sendIconBackground: {
-    backgroundColor: '#00AEEF', // Blue background
-    padding: 15,               // Padding around the icon
-    borderRadius: 5,          // Round the button
-    justifyContent: 'center',  // Center the icon vertically
-    alignItems: 'center',      // Center the icon horizontally
+    backgroundColor: '#00AEEF',
+    padding: 15,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   searchContainer: {
     flexDirection: 'row',
@@ -182,21 +197,102 @@ export default StyleSheet.create({
   priorityButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-   // marginTop: 10,
   },
   cancelButton: {
-    backgroundColor: '#ff4d4d',
-    padding: 10,
-    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#00AEEF', 
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 10,
+    alignItems: 'center',
   },
   saveButton: {
-    backgroundColor: '#4CAF50',
-    padding: 10,
+    backgroundColor: '#00AEEF',
+    paddingVertical: 12,
+    paddingHorizontal: 40,
     borderRadius: 5,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     textAlign: 'center',
+  },
+  taskList: {
+    flex: 1,
+    width: '100%',
+    paddingHorizontal: 15,
+  },
+  taskItem: {
+    flexDirection: 'row',
+    backgroundColor: '#333',
+    borderRadius: 8,
+    padding: 15,
+    marginVertical: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    overflow: 'hidden',
+  },
+  taskItemCompleted: {
+    backgroundColor: '#444',
+    opacity: 0.7,
+  },
+  taskContent: {
+    flex: 1,
+    marginRight: 10,
+  },
+  taskTitle: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  taskInfo: {
+    color: '#aaa',
+    fontSize: 14,
+  },
+  taskTextCompleted: {
+    color: '#888',
+    textDecorationLine: 'line-through',
+  },
+  completeButton: {
+    padding: 5,
+  },
+  completedButton: {
+    opacity: 0.7,
+  },
+  deleteButton: {
+    backgroundColor: '#ff4444',
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    marginRight: 10,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  dateTimeButton: {
+    backgroundColor: '#f0f0f0',
+    padding: 15,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  priorityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  priorityInput: {
+    backgroundColor: '#f0f0f0',
+    marginLeft: 10,
+    padding: 10,
+    borderRadius: 5,
+    width: 50,
+    textAlign: 'center',
+  },
+  descriptionInput: {
+    height: 100,
+    textAlignVertical: 'top',
   },
 });

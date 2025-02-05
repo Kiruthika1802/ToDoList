@@ -33,4 +33,11 @@ export default StyleSheet.create({
     width: 300,
     height: 310,
   },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 1,
+    padding: 10,
+  },
 });

@@ -1,31 +1,16 @@
 import React, { useState } from 'react';
-import styles from "./login.css.js";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import styles from './login.css.js';
+import { View,Text,TextInput,TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    console.log('Email:', email, 'Password:', password);
-  };
-
-  const handleRegister = () => {
-    console.log('Navigate to Register screen');
-  };
-
   return (
     <View style={styles.container}>
-
-      {/* Welcome Text */}
       <Text style={styles.title}>Login to Your Account</Text>
-
-      {/* Input Fields */}
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -42,15 +27,11 @@ const LoginScreen = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-
-      {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+      <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Home')} >
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
-
-      {/* Register Link */}
-      <TouchableOpacity onPress={handleRegister}>
-        <Text style={styles.registerText}>
+      <TouchableOpacity >
+        <Text style={styles.registerText}  onPress={() => navigation.navigate('Register')}>
           Don’t have an account?{' '}
           <Text style={styles.registerLink}>Register</Text>
         </Text>

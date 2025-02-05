@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "title": "Do Math Homework",
+        "time": "16:45",
+        "description": "University",
+        "priority": 3,
+        "date": "2025-01-30"
+    },
+    {
+        "id": 2,
+        "title": "Tack out dogs",
+        "time": "18:20",
+        "description": "Home",
+        "priority": 5,
+        "date": "2025-01-30"
+    },
+    {
+        "id": 3,
+        "title": "Business meeting with CEO",
+        "time": "08:15",
+        "description": "Work",
+        "priority": 2,
+        "date": "2025-01-30"
+    },
+    {
+        "id": 4,
+        "title": "Buy Grocery",
+        "time": "16:45",
+        "description": "",
+        "priority": 1,
+        "date": "2025-01-30"
+    }
+]

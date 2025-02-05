@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -38,7 +37,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
-    height: 50, // Set a consistent height for the TouchableOpacity
+    height: 50, 
   },
   icon: {
     marginRight: 10,
@@ -50,7 +49,6 @@ export default StyleSheet.create({
     flex: 1,
     color: '#fff',
     fontSize: 16,
-    //lineHeight: 50, // Match lineHeight to the height of the TouchableOpacity
   },
   logoutOption: {
     flexDirection: 'row',
@@ -112,5 +110,11 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     textAlign: 'center',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    zIndex: 1,
+    padding: 10,
   },
 });

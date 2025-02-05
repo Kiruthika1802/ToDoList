@@ -49,4 +49,11 @@ export default StyleSheet.create({
     height: 60,
     marginBottom: 20,
   },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 1,
+    padding: 10,
+  },
 });
