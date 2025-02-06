@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, ScrollView, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput, ScrollView, Image, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import styles from './settings.css.js';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const Settings = () => {
   const navigation = useNavigation();
@@ -12,7 +13,40 @@ const Settings = () => {
   const [isImageModalVisible, setImageModalVisible] = useState(false);
   const [accountName, setAccountName] = useState('');
   const [oldPassword, setOldPassword] = useState('');
+  const [user, setUser] = useState(null);
   const [newPassword, setNewPassword] = useState('');
+  const userEmail = 'pupaclic@gmail.com';
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!userEmail) return;
+
+      try {
+        const response = await axios.post('http://192.168.0.97:8000/ToDo/v1/GetDetails', {
+          Email: userEmail
+        });
+        if (response.data.message === 'User Exists') {
+          setUser(response.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, [userEmail]);
+
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#FF5733" />
+      </View>
+    );
+  }
 
   const toggleNameModal = () => {
     setNameModalVisible(!isNameModalVisible);
@@ -46,7 +80,7 @@ const Settings = () => {
     <ScrollView style={styles.container}>
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.navigate('Home')}
       >
         <Icon name="chevron-left" size={24} color="#fff" />
       </TouchableOpacity>
@@ -56,20 +90,20 @@ const Settings = () => {
           source={require('../Images/user.png')}
           style={styles.profileImage}
         />
-        <Text style={styles.profileName}>Martha Hays</Text>
+        <Text style={styles.profileName}>{user?.Username || 'Name'}</Text>
       </View>
 
 
       <View style={styles.section}>
         <TouchableOpacity style={styles.option} onPress={toggleNameModal}>
           <Icon name="user" size={20} color="#fff" style={styles.icon} />
-          <Text style={styles.optionText}>Change account name</Text>
+          <Text style={styles.optionText} >Change account name</Text>
           <Icon name="chevron-right" size={20} color="#fff" style={styles.arrow} />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.option} onPress={togglePasswordModal}>
           <Icon name="lock" size={20} color="#fff" style={styles.icon} />
-          <Text style={styles.optionText}>Change account password</Text>
+          <Text style={styles.optionText} >Change account password</Text>
           <Icon name="chevron-right" size={20} color="#fff" style={styles.arrow} />
         </TouchableOpacity>
 
@@ -105,7 +139,7 @@ const Settings = () => {
           <Text style={styles.modalTitle}>Change Account Name</Text>
           <TextInput
             style={styles.input}
-            placeholder="Enter new account name"
+            placeholder={user?.Username}
             placeholderTextColor={'#888'}
             value={accountName}
             onChangeText={setAccountName}
@@ -166,10 +200,10 @@ const Settings = () => {
           </View>
 
           <View style={styles.modalButtons}>
-            <TouchableOpacity style={styles.cancelButton}>
+            <TouchableOpacity style={styles.cancelButton} onPress={toggleImageModal}>
               <Text style={styles.buttonText}>Cancel</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.saveButton}>
+            <TouchableOpacity style={styles.saveButton} onPress={toggleImageModal}>
               <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
           </View>
