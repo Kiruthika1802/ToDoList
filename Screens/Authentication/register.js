@@ -32,7 +32,7 @@ const RegisterScreen = () => {
         try {
             //console.log('Sending registration data:', { Username: username, Email: email, Password: password });
 
-            const response = await axios.post('http://192.168.0.97:8000/ToDo/v1/AddDetails',
+            const response = await axios.post('http://192.168.0.106:8000/ToDo/v1/AddDetails',
                 JSON.stringify({
                     Username: username,
                     Email: email,

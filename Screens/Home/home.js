@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Image, Modal, TextInput, KeyboardAvoidingView, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Modal, TextInput, KeyboardAvoidingView, FlatList, Alert, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from './home.css.js';
@@ -25,6 +25,14 @@ const HomeScreen = () => {
   const [editDatePickerVisible, setEditDatePickerVisible] = useState(false);
   const [editTimePickerVisible, setEditTimePickerVisible] = useState(false);
   const [taskCounts, setTaskCounts] = useState({ left: 0, done: 0 });
+
+  const deleteTask = () => {
+    if (editingTask) {
+      setTasks(prevTasks => prevTasks.filter(task => task.id !== editingTask.id));
+      setEditModalVisible(false);
+      setEditingTask(null);
+    }
+  };
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -83,11 +91,24 @@ const HomeScreen = () => {
     );
 
   const handleSubmitTask = () => {
-    console.log('Task Title:', taskTitle);
-    console.log('Task Description:', taskDescription);
-    console.log('Date:', selectedDate);
-    console.log('Time:', selectedTime);
-    console.log('Priority:', priority);
+    if (!taskTitle.trim()) {
+      Alert.alert('Error', 'Task title is required');
+      return;
+    }
+  
+    const newTask = {
+      id: Math.max(...tasks.map(t => t.id), 0) + 1, // Generate new unique ID
+      title: taskTitle,
+      description: taskDescription,
+      date: selectedDate || new Date().toISOString().split('T')[0],
+      time: selectedTime || new Date().toLocaleTimeString().slice(0, 5),
+      priority: priority || 1,
+      completed: false
+    };
+  
+    setTasks(prevTasks => [...prevTasks, newTask]);
+  
+    // Reset form
     setTaskTitle('');
     setTaskDescription('');
     setSelectedDate(null);
@@ -154,9 +175,9 @@ const HomeScreen = () => {
   };
 
   const getPriorityColor = (priority) => {
-    if (priority <= 2) return '#4CAF50';
-    if (priority <= 4) return '#FFC107';
-    return '#FF5252';
+    if (priority <= 3) return 'red';
+    if (priority <= 6) return 'yellow';
+    return 'blue';
   };
 
   const renderTask = ({ item }) => (
@@ -197,6 +218,82 @@ const HomeScreen = () => {
       </TouchableOpacity>
     </TouchableOpacity>
   );
+
+  const handleEditTask = () => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === editingTask.id) {
+        return {
+          ...task,
+          title: editingTask.title,
+          description: editingTask.description,
+          date: editingTask.date,
+          time: editingTask.time,
+          priority: editingTask.priority, // Make sure priority is included
+          completed: task.completed
+        };
+      }
+      return task;
+    }).sort((a, b) => {
+      if (a.completed === b.completed) {
+        return a.priority - b.priority;
+      }
+      return a.completed ? 1 : -1;
+    });
+  
+    setTasks(updatedTasks);
+    setEditModalVisible(false);
+    setEditingTask(null);
+  };
+  
+  const handlePriorityChange = (newPriority) => {
+    setEditingTask(prev => ({
+      ...prev,
+      priority: newPriority
+    }));
+  };
+
+  // Add new section rendering components
+  const PendingTasksSection = () => {
+    const pendingTasks = getFilteredTasks().filter(task => !task.completed)
+      .sort((a, b) => a.priority - b.priority);
+  
+    return (
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Pending Tasks</Text>
+        <FlatList
+          data={pendingTasks}
+          renderItem={renderTask}
+          keyExtractor={item => item.id.toString()}
+        />
+      </View>
+    );
+  };
+  
+  const CompletedTasksSection = () => {
+    const completedTasks = getFilteredTasks().filter(task => task.completed)
+      .sort((a, b) => a.priority - b.priority);
+  
+    return (
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Completed Tasks</Text>
+        <FlatList
+          data={completedTasks}
+          renderItem={renderTask}
+          keyExtractor={item => item.id.toString()}
+        />
+      </View>
+    );
+  };
+
+  const getFilteredTasks = () => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) return tasks;
+    
+    return tasks.filter(task => 
+      task.title.toLowerCase().includes(query) ||
+      (task.description && task.description.toLowerCase().includes(query))
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -240,12 +337,11 @@ const HomeScreen = () => {
           <Text style={styles.addTaskPrompt}>Tap + to add your tasks</Text>
         </View>
       ) : (
-        <FlatList
-          data={tasks}
-          renderItem={renderTask}
-          keyExtractor={item => item.id.toString()}
-          style={styles.taskList}
-        />)}
+        <ScrollView style={styles.contentContainer}>
+          <PendingTasksSection />
+          <CompletedTasksSection />
+        </ScrollView>
+      )}
 
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Home')}>
@@ -337,8 +433,8 @@ const HomeScreen = () => {
 
             <View style={styles.modalButtons}>
               <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={handleTaskDelete}
+                style={[styles.modalButton, styles.deleteButton]}
+                onPress={deleteTask}
               >
                 <Text style={styles.buttonText}>Delete</Text>
               </TouchableOpacity>

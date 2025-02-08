@@ -24,7 +24,7 @@ const Settings = () => {
       if (!userEmail) return;
 
       try {
-        const response = await axios.post('http://192.168.0.97:8000/ToDo/v1/GetDetails', {
+        const response = await axios.post('http://192.168.0.106:8000/ToDo/v1/GetDetails', {
           Email: userEmail
         });
         if (response.data.message === 'User Exists') {

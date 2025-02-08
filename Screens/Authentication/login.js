@@ -24,7 +24,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     if (!validateForm()) return;
     try {
-      const response = await axios.post('http://192.168.0.97:8000/ToDo/v1/Validate', {
+      const response = await axios.post('http://192.168.0.106:8000/ToDo/v1/Validate', {
         Email: email,
         Password: password
       });

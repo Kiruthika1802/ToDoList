@@ -295,4 +295,15 @@ export default StyleSheet.create({
     height: 100,
     textAlignVertical: 'top',
   },
+  sectionContainer: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 12,
+    color: '#fff',
+    marginBottom: 5,
+  },
+  contentContainer: {
+    flex: 1,
+  },
 });
