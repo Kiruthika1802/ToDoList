@@ -3,6 +3,8 @@ import styles from './register.css.js';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { API_URL } from '@env';
+
 
 const RegisterScreen = () => {
     const navigation = useNavigation();
@@ -32,7 +34,7 @@ const RegisterScreen = () => {
         try {
             //console.log('Sending registration data:', { Username: username, Email: email, Password: password });
 
-            const response = await axios.post('http://192.168.0.106:8000/ToDo/v1/AddDetails',
+            const response = await axios.post(`${API_URL}/AddDetails`,
                 JSON.stringify({
                     Username: username,
                     Email: email,

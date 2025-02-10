@@ -3,6 +3,7 @@ import styles from './login.css.js';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { API_URL } from '@env';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     if (!validateForm()) return;
     try {
-      const response = await axios.post('http://192.168.0.106:8000/ToDo/v1/Validate', {
+      const response = await axios.post(`${API_URL}/Validate`, {
         Email: email,
         Password: password
       });
