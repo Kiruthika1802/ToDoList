@@ -5,8 +5,6 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from './home.css.js';
 import tasksData from '../SampleData/tasks.json';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import { API_URL } from '@env';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -28,23 +26,11 @@ const HomeScreen = () => {
   const [editTimePickerVisible, setEditTimePickerVisible] = useState(false);
   const [taskCounts, setTaskCounts] = useState({ left: 0, done: 0 });
 
-  const deleteTask = async () => {
-    if (!editingTask) return;
-
-    try {
-      const response = await axios.delete(`${API_URL}/DeleteTask`, {
-        data: {
-          Title: editingTask.title
-        }
-      });
-
-      if (response.data) {
-        fetchTasks();
-        setEditModalVisible(false);
-        setEditingTask(null);
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to delete task');
+  const deleteTask = () => {
+    if (editingTask) {
+      setTasks(prevTasks => prevTasks.filter(task => task.id !== editingTask.id));
+      setEditModalVisible(false);
+      setEditingTask(null);
     }
   };
 
@@ -104,51 +90,32 @@ const HomeScreen = () => {
       </View>
     );
 
-  const handleSubmitTask = async () => {
+  const handleSubmitTask = () => {
     if (!taskTitle.trim()) {
       Alert.alert('Error', 'Task title is required');
       return;
     }
 
-    try {
-      const taskData = {
-        title: taskTitle,
-        desc: taskDescription,
-        date: selectedDate || new Date().toISOString().split('T')[0],
-        time: selectedTime || new Date().toLocaleTimeString().slice(0, 5),
-        priority: priority || 1,
-        status: 'pending',
-        CreatedAt: new Date(),
-        UpdatedAt: new Date()
-      };
+    const newTask = {
+      id: Math.max(...tasks.map(t => t.id), 0) + 1, // Generate new unique ID
+      title: taskTitle,
+      description: taskDescription,
+      date: selectedDate || new Date().toISOString().split('T')[0],
+      time: selectedTime || new Date().toLocaleTimeString().slice(0, 5),
+      priority: priority || 1,
+      completed: false
+    };
 
-      const response = await axios.post(`${API_URL}/AddTask`, taskData);
+    setTasks(prevTasks => [...prevTasks, newTask]);
 
-      if (response.data) {
-        fetchTasks();
-        // Reset form
-        setTaskTitle('');
-        setTaskDescription('');
-        setSelectedDate(null);
-        setSelectedTime(null);
-        setPriority(null);
-        setModalVisible(false);
-        setPriorityPickerVisible(false);
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to add task');
-    }
-  };
-
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/GetTask`);
-      if (response.data.tasks) {
-        setTasks(response.data.tasks);
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to fetch tasks');
-    }
+    // Reset form
+    setTaskTitle('');
+    setTaskDescription('');
+    setSelectedDate(null);
+    setSelectedTime(null);
+    setPriority(null);
+    setModalVisible(false);
+    setPriorityPickerVisible(false);
   };
 
   const handleTaskPress = (task) => {
@@ -176,30 +143,17 @@ const HomeScreen = () => {
     }
   };
 
-  const handleUpdateTask = async () => {
-    if (!editingTask?.title.trim()) {
+  const handleUpdateTask = () => {
+    if (!editingTask.title.trim()) {
       Alert.alert('Error', 'Title is required');
       return;
     }
 
-    try {
-      const response = await axios.patch(`${API_URL}/UpdateTask`, {
-        Title: editingTask.title,
-        Description: editingTask.description,
-        Date: editingTask.date,
-        Time: editingTask.time,
-        Priority: editingTask.priority,
-        UpdatedAt: new Date()
-      });
-
-      if (response.data) {
-        fetchTasks();
-        setEditModalVisible(false);
-        setEditingTask(null);
-      }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to update task');
-    }
+    const updatedTasks = tasks.map(task =>
+      task.id === editingTask.id ? editingTask : task
+    );
+    setTasks(updatedTasks);
+    setEditModalVisible(false);
   };
 
   const handleTaskDelete = () => {
@@ -208,20 +162,16 @@ const HomeScreen = () => {
     setEditModalVisible(false);
   };
 
-  const handleTaskComplete = async (taskId) => {
-    try {
-      const response = await axios.patch(`${API_URL}/UpdateStatus`, {
-        Title: taskId,
-        Status: 'completed',
-        UpdatedAt: new Date()
-      });
-
-      if (response.data) {
-        fetchTasks();
+  const handleTaskComplete = (taskId) => {
+    const updatedTasks = tasks.map(task =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    ).sort((a, b) => {
+      if (a.completed === b.completed) {
+        return a.priority - b.priority;
       }
-    } catch (error) {
-      Alert.alert('Error', 'Failed to update task status');
-    }
+      return a.completed ? 1 : -1;
+    });
+    setTasks(updatedTasks);
   };
 
   const getPriorityColor = (priority) => {
@@ -344,10 +294,6 @@ const HomeScreen = () => {
       (task.description && task.description.toLowerCase().includes(query))
     );
   };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
 
   return (
     <View style={styles.container}>

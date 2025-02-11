@@ -297,11 +297,13 @@ export default StyleSheet.create({
   },
   sectionContainer: {
     marginBottom: 20,
+    paddingHorizontal: 15,
   },
   sectionTitle: {
     fontSize: 12,
     color: '#fff',
     marginBottom: 5,
+    paddingLeft: 5,
   },
   contentContainer: {
     flex: 1,
